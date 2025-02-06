@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const isAuthenticated = require('../middleware').isAuthenticated;
 
 router.get('/', (req, res) => {
   res.redirect('/login');
@@ -63,5 +62,14 @@ router.get('/delete', isAuthenticated, (req, res) => {
     employee: { firstName, lastName }
   });
 });
+
+function isAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+
+  req.flash('error_msg', 'Please log in to see this page');
+  res.redirect('/login');
+}
 
 module.exports = router;
