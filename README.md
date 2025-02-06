@@ -16,9 +16,9 @@ A simple NodeJS application for my Advanced Open Source Web Development class at
 
     - Install an up to date version of NodeJS on your machine and install the dependencies:
 
-    ```sh
-    npm install
-    ```
+      ```sh
+        npm install
+      ```
 
 3. **Configure the Database:**
 
