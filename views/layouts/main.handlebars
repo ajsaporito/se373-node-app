@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="icon" href="/favicon.ico">
+    <title>{{title}}</title>
+  </head>
+  <body>
+    {{#if user}}
+      <nav class="navbar">
+        <div class="container">
+          <ul class="nav-links">
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/add">Add an Employee</a></li>
+            <li><a href="/view">View Employees</a></li>
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+        </div>
+      </nav>
+    {{/if}}
+    <main>
+      {{{body}}}
+      <div class="msg-container">
+        {{#if success_msg}}
+          <p class="success">{{success_msg}}</p>
+        {{/if}}
+        {{#if error_msg}}
+          <p class="error">{{error_msg}}</p>
+        {{/if}}
+        {{#if error}}
+          <p class="error">{{error}}</p>
+        {{/if}}
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<h1>{{title}}</h1>
+<form class="form" id="updateForm">
+  <input type="hidden" id="_id" name="_id" value="{{employee._id}}">
+  <label for="firstName">First Name:</label>
+  <input type="text" id="firstName" name="firstName" value="{{employee.firstName}}" required>
+  <label for="lastName">Last Name:</label>
+  <input type="text" id="lastName" name="lastName" value="{{employee.lastName}}" required>
+  <label for="department">Department:</label>
+  <select id="department" name="department" required>
+    <option value="" disabled selected>Select a department</option>
+    {{#each departments}}
+      <option value="{{this.name}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
+    {{/each}}
+  </select>
+  <label for="startDate">Start Date:</label>
+  <input type="date" id="startDate" name="startDate" value="{{formatDate employee.startDate}}" required>
+  <label for="jobTitle">Job Title:</label>
+  <input type="text" id="jobTitle" name="jobTitle" value="{{employee.jobTitle}}" required>
+  <label for="salary">Salary:</label>
+  <input type="number" id="salary" name="salary" min="0" value="{{employee.salary}}" required>
+  <button class="submit-btn" type="submit">Update Employee</button>
+</form>
+<script>
+  document.getElementById('updateForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const id = document.getElementById('_id').value;
+    const firstName = document.getElementById('firstName').value.trim();
+    const lastName = document.getElementById('lastName').value.trim();
+    const department = document.getElementById('department').value;
+    const startDate = (document.getElementById('startDate').value);
+    const jobTitle = document.getElementById('jobTitle').value.trim();
+    const salary = document.getElementById('salary').value;
+
+    if (!firstName || !lastName || !jobTitle) {
+      alert('First Name, Last Name, or Job Title cannot be only spaces!');
+    } 
+
+    try {
+      const response = await fetch(`http://localhost:3000/api/employees/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          department,
+          startDate,
+          jobTitle,
+          salary}),
+      });
+
+      if (response.ok) {
+        window.location.href = '/view';
+      } else {
+        console.error('Failed to update employee');
+      }
+    } catch (err) {
+      console.error('Error:', err);
+    }
+  });
+</script>
