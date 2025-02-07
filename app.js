@@ -5,13 +5,14 @@ const exphbs = require('express-handlebars');
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
-const passportConfig = require('../config/passport');
+const passportConfig = require('config/passport');
+const PORT = 3000;
 const app = express();
 
-const db = require('../config/db');
-const api = require('../routes/api');
-const auth = require('../routes/auth');
-const index = require('../routes');
+const db = require('config/db');
+const api = require('routes/api');
+const auth = require('routes/auth');
+const index = require('routes');
 
 passportConfig(passport);
 
@@ -51,7 +52,7 @@ app.engine('handlebars', exphbs.engine({
 }));
 
 app.set('view engine', 'handlebars');
-app.set('views', path.join(__dirname, '../views'));
+app.set('views', path.join(__dirname, 'views'));
 
 app.use('/', index);
 app.use('/', auth);
@@ -61,4 +62,6 @@ app.use((req, res) => {
   res.status(404).send("Page not found.");
 });
 
-module.exports = app;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}.`);
+});
