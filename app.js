@@ -5,18 +5,18 @@ const exphbs = require('express-handlebars');
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
-const passportConfig = require('config/passport');
+const passportConfig = require('./config/passport');
 const PORT = 3000;
 const app = express();
 
-const db = require('config/db');
-const api = require('routes/api');
-const auth = require('routes/auth');
-const index = require('routes');
+const db = require('./config/db');
+const api = require('./routes/api');
+const auth = require('./routes/auth');
+const index = require('./routes');
 
 passportConfig(passport);
 
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
