@@ -68,7 +68,7 @@ function isAuthenticated(req, res, next) {
     return next();
   }
 
-  req.flash('error_msg', 'Please log in to see this page');
+  req.flash('error_msg', 'Please log in to see this page.');
   res.redirect('/login');
 }
 

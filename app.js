@@ -6,7 +6,7 @@ const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
 const passportConfig = require('./config/passport');
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const app = express();
 
 const db = require('./config/db');
@@ -65,3 +65,5 @@ app.use((req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}.`);
 });
+
+module.exports = app;
