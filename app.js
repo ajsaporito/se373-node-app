@@ -6,6 +6,7 @@ const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
 const passportConfig = require('./config/passport');
+const MongoStore = require("connect-mongo");
 const PORT = process.env.PORT || 3000;
 const app = express();
 
@@ -20,10 +21,28 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(session({
+/*app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
+}));*/
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false, 
+  saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGO_URI,
+    collectionName: "sessions",
+    ttl: 60 * 60 * 24 * 7,
+  }),
+  cookie: {
+    secure: process.env.NODE_ENV === "production", 
+    httpOnly: true, 
+    sameSite: "strict",
+    maxAge: 1000 * 60 * 15,
+  },
+  rolling: true, 
 }));
 
 app.use(passport.initialize());
