@@ -20,7 +20,7 @@ A simple NodeJS application for my Advanced Open Source Web Development class at
         npm install
       ```
 
-3. **Configure the Database:**
+3. **Configure Environment Variables & Database:**
 
     - Create a `.env` file at the root of the directory and add the connection string and secret:
 
@@ -28,6 +28,8 @@ A simple NodeJS application for my Advanced Open Source Web Development class at
         MONGO_URI=mongodb+srv://<username>:<password>@<cluster-name>.mongodb.net/<database-name>?retryWrites=true&w=majority
         SESSION_SECRET=<your-secret-here>
       ```
+
+    - Set up MongoDB on your machine
 
 4. **Run the Application:**
 
