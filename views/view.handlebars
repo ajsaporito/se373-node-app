@@ -1,0 +1,61 @@
+<h1>{{title}}</h1>
+{{#if employees.length}}
+  <table>
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Department</th>
+        <th>Start Date</th>
+        <th>Job Title</th>
+        <th>Salary</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each employees}}
+        <tr>
+          <td>{{firstName}}</td>
+          <td>{{lastName}}</td>
+          <td>{{department}}</td>
+          <td>{{formatDate startDate}}</td>
+          <td>{{jobTitle}}</td>
+          <td>${{salary}}</td>
+          <td>
+            <a href="/update/{{_id}}" class="update-btn" style="text-decoration: none;">Update</a>
+            <button class="delete-btn" data-id="{{_id}}" type="submit" onclick="deleteEmployee(this)">Delete</button>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+{{else}}
+  <p style="text-align: center;">No employees found in the database.</p>
+{{/if}}
+<script>
+  async function deleteEmployee(button) {
+    const row = button.closest('tr');
+    const firstName = row.querySelector('td:nth-child(1)').textContent.trim();
+    const lastName = row.querySelector('td:nth-child(2)').textContent.trim();
+
+    const id = button.getAttribute('data-id');
+    const confirmDelete = confirm('Are you sure you want to delete this employee?');
+
+    if (!confirmDelete) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/employees/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        window.location.href = `/delete?firstName=${firstName}&lastName=${lastName}`;
+      } else {
+        console.error('Failed to delete employee');
+      }
+    } catch (err) {
+      console.error('Error:', err);
+    }
+  }
+</script>
