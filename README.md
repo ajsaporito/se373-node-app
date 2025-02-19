@@ -15,7 +15,7 @@ A simple NodeJS application for my Advanced Open Source Web Development class at
 2. **Set Up Your Web Server:**
 
     - Install an up to date version of NodeJS on your machine and install the dependencies:
-
+    <br>
     ```sh
     npm install
     ```
@@ -23,7 +23,7 @@ A simple NodeJS application for my Advanced Open Source Web Development class at
 3. **Configure the Database:**
 
     - Create a `.env` file at the root of the directory and add the connection string and secret:
-
+    <br>
    ```env
    MONGO_URI=mongodb+srv://<username>:<password>@<cluster-name>.mongodb.net/<database-name>?retryWrites=true&w=majority
    SESSION_SECRET=<your-secret-here>
